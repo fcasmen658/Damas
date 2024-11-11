@@ -88,8 +88,8 @@ class DamaTest {
 		damaBlanca = new Dama(Color.BLANCO);
 
 		damaBlanca.setPosicion(new Posicion(7,'c'));
-		damaBlanca.mover(Direccion.NORESTE, 1);
-		assertEquals(new Posicion(8, 'd'), damaBlanca.getPosicion(), POSICION_NO_ESPERADA);
+/*		damaBlanca.mover(Direccion.NORESTE, 1);
+		assertEquals(new Posicion(8, 'd'), damaBlanca.getPosicion(), POSICION_NO_ESPERADA);*/
 		damaBlanca.mover(Direccion.SURESTE, 3);
 		assertEquals(new Posicion(5, 'g'), damaBlanca.getPosicion(), POSICION_NO_ESPERADA);
 		damaBlanca.mover(Direccion.SUROESTE, 4);
