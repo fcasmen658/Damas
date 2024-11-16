@@ -37,7 +37,7 @@ public class MainApp {
     private static void crearDamaColor() {
         try{
             dama = new Dama(Consola.elegirColor());
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | NullPointerException e) {
             throw new RuntimeException(e);
         }
     }

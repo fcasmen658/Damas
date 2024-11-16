@@ -69,7 +69,7 @@ public class Dama {
         if (getPosicion().getFila()==1 && color == Color.NEGRO && !this.esDamaEspecial) {
             this.esDamaEspecial=true;
         }
-        return this.esDamaEspecial;
+        return esDamaEspecial;
     }
 
     public void mover(Direccion direccion, int pasos) throws OperationNotSupportedException {
@@ -83,22 +83,10 @@ public class Dama {
             throw new NullPointerException("ERROR: El color no puede ser nulo.");
         }
         if (!esDamaEspecial) {
-            if (((pasos > 1) && (getColor()==Color.BLANCO)) && (direccion == Direccion.NORESTE || direccion == Direccion.NOROESTE)
+            if (((pasos != 1) && (getColor()==Color.BLANCO)) && (direccion == Direccion.NORESTE || direccion == Direccion.NOROESTE)
                     ||
-                    ((pasos > 1) && (getColor()==Color.NEGRO)) && (direccion == Direccion.SURESTE || direccion == Direccion.SUROESTE)) {
+                    ((pasos != 1) && (getColor()==Color.NEGRO)) && (direccion == Direccion.SURESTE || direccion == Direccion.SUROESTE)) {
                 throw new OperationNotSupportedException("ERROR: Las damas normales solo se pueden mover 1 casilla.");
-            }  // movimiento permitido
-        }
-
-        //Esto es para las damas especiales
-        if (getColor()==Color.BLANCO) {
-            if (esDamaEspecial || Direccion.SURESTE.equals(direccion) || Direccion.SUROESTE.equals(direccion)) {
-                throw new OperationNotSupportedException("ERROR: Movimiento no permitido.");
-            }  // movimiento permitido
-
-        }else if(getColor()==Color.NEGRO) {
-            if (esDamaEspecial || Direccion.NORESTE.equals(direccion) || Direccion.NOROESTE.equals(direccion)) {
-                throw new OperationNotSupportedException("ERROR: Movimiento no permitido.");
             }  // movimiento permitido
         }
 
@@ -124,12 +112,16 @@ public class Dama {
                 nuevaColumna -= (char) pasos;
                 break;
             }
-        // Validar la nueva posición
-        if (nuevaFila < 1 || nuevaFila > 8 || nuevaColumna < 'a' || nuevaColumna > 'h') {
+
+        // Actualizar la posición de la dama
+        try
+        {
+        posicion = new Posicion(nuevaFila, nuevaColumna);
+        }
+        catch(IllegalArgumentException e)
+        {
             throw new OperationNotSupportedException("ERROR: Movimiento no permitido.");
         }
-        // Actualizar la posición de la dama
-        this.posicion = new Posicion(nuevaFila, nuevaColumna);
     }
 
     //Posición inicial aleatoria
